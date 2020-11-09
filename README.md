@@ -1,4 +1,4 @@
-# Bioinfomatics Practicing Files @ NJU & THU
+# Bioinformatics Practice Files @ NJU & THU
 
 > **NJU:** Started from 2019.9  
 > **THU:** Started from 2020.9
