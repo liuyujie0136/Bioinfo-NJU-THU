@@ -9,6 +9,3 @@
 - **r:** R scripts mostly concentrated on NGS data analysis and R packages usage
 - **python:** Python files about basic programming skills and machine learning
 
-## Contact me
-
-**Email:** liuyujiekindle@163.com
