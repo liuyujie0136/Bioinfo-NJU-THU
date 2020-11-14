@@ -2,7 +2,7 @@
 
 ## package 'ggimage'
 
-install.packages("ggimage"); devtools::install_github("GuangchuangYu/ggimage")
+install.packages("ggimage") # OR: devtools::install_github("GuangchuangYu/ggimage")
 
 library(ggplot2)
 library(ggimage)
@@ -17,13 +17,15 @@ ggplot(d)+geom_point(aes(x,y))+geom_image(aes(a,b,image=img))
 
 ## package 'emojifont'
 
-# note: may have errors!
-
-install.packages("emojifont"); devtools::install_github("richfitz/remoji")
+install.packages("emojifont")
 
 library(ggplot2)
 library(emojifont)
-library(remoji)
+
+# emoji characters
+
+search_emoji('smile')
+message(emoji(search_emoji('smile')))
 
 # base plot
 
@@ -31,13 +33,34 @@ set.seed(123)
 x <- rnorm(10)
 set.seed(321)
 y <- rnorm(10)
-plot(x, y)
-text(x,y,labels=emoji('cow'), cex=1.5, col='steelblue')
+plot(x, y, cex=0)
+text(x, y, labels=emoji('cow'), cex=1.5, col='steelblue', family='EmojiOne')
 
 # ggplot2
-dd=data.frame(x=emoji(c("satisfied", "disapointed")), y=c(50, 10))
-emoji_text=element_text(family="OpenSansEmoji", size=20)
-ggplot(dd, aes(x, y)) + geom_bar(stat='identity', aes(fill=x)) +
-  ggtitle(paste(emoji(c("+1", "-1")), collapse=" "))+
-  theme(axis.text.x = emoji_text, legend.text=emoji_text, title=emoji_text) +
-  xlab(NULL)+ylab(NULL)
+
+d <- data.frame(x=x, y=y, label = sample(c(emoji('cow'), emoji('camel')), 10, replace=TRUE),type = sample(LETTERS[1:3], 10, replace=TRUE))
+ggplot(d, aes(x, y, color=type, label=label)) +
+  geom_text(family="EmojiOne", size=6)
+
+# geom_emoji layer for easy use in ggplot2
+
+ggplot() + geom_emoji("rose", color='steelblue') + theme_void()
+
+x = seq(0, 2*pi, length=30)
+y = sin(x)
+ggplot() + geom_emoji('heartbeat', x=x, y=y, size=10)
+
+# Font Awesome
+
+set.seed(2016-03-09)
+fa <- fontawesome(c('fa-github', 'fa-weibo', 'fa-twitter', 'fa-android', 'fa-coffee'))
+d <- data.frame(x=rnorm(20), y=rnorm(20), label=sample(fa, 20, replace=T))
+ggplot(d, aes(x, y, color=label, label=label)) +
+  geom_text(family='fontawesome-webfont', size=6)+
+  xlab(NULL)+ylab(NULL) +
+  theme(legend.text=element_text(family='fontawesome-webfont'))
+
+# geom_fontawesome layer
+
+ggplot() + geom_fontawesome("fa-github", color='black') + theme_void()
+

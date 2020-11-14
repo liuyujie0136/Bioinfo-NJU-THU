@@ -1,12 +1,7 @@
 ### DNA sequence recombination visualization - using seqcombo
 
 ## Installation
-repo = c("https://cran.rstudio.com",
-         "https://bioconductor.org/packages/release/bioc",
-         "https://guangchuangyu.github.io/drat")
-install.packages("seqcombo", repo=repo)
-#remotes::install_github('YuLab-SMU/seqcombo')
-
+remotes::install_github('YuLab-SMU/seqcombo')
 
 ## example
 library(seqcombo)

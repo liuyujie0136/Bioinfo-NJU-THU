@@ -95,5 +95,4 @@ t=gsub(":","-",gsub(" ","-",as.character(Sys.time())))
 graph2ppt(file=paste0("Rplot-",t,".pptx"))
 
 ## save RData (important for ggtree.R!)
-save(list=ls(),file='phylo-ggtree.RData')
-
+save.image(file="phylo-ggtree.RData") 
