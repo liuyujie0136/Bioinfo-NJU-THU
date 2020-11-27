@@ -6,7 +6,7 @@
 # 0-based coordinate system, with half-closed, half-open intervals: [start, end), width=end-start
 # 1-based coordinate system, with closed intervals: [start, end], width=end-start+1
 
-# BED, BAM, BCF: 0-based
+# BED: 0-based;  BAM, BCF: 1-based !!
 # GTF, GFF, SAM, VCF, Wiggle, GenomicRanges, BLAST, GenBank/EMBL Feature Table: 1-based
 
 
