@@ -1,0 +1,70 @@
+Comprehensive genomic characterization defines human glioblastoma genes and core pathways
+Integrated genomic analyses of ovarian carcinoma
+Comprehensive molecular characterization of human colon and rectal cancer
+Comprehensive molecular portraits of human breast tumours
+Comprehensive genomic characterization of squamous cell lung cancers
+Integrated genomic characterization of endometrial carcinoma
+Genomic and epigenomic landscapes of adult de novo acute myeloid leukemia
+Comprehensive molecular characterization of clear cell renal cell carcinoma
+The Cancer Genome Atlas Pan-Cancer analysis project
+The somatic genomic landscape of glioblastoma
+Comprehensive molecular characterization of urothelial bladder carcinoma
+Comprehensive molecular profiling of lung adenocarcinoma
+Multiplatform analysis of 12 cancer types reveals molecular classification within and across tissues of origin
+The Somatic Genomic Landscape of Chromophobe Renal Cell Carcinoma
+Comprehensive molecular characterization of gastric adenocarcinoma
+Integrated genomic characterization of papillary thyroid carcinoma
+Comprehensive genomic characterization of head and neck squamous cell carcinomas
+Genomic Classification of Cutaneous Melanoma
+Comprehensive, Integrative Genomic Analysis of Diffuse Lower-Grade Gliomas
+Comprehensive Molecular Portraits of Invasive Lobular Breast Cancer
+The Molecular Taxonomy of Primary Prostate Cancer
+Comprehensive Molecular Characterization of Papillary Renal-Cell Carcinoma
+Comprehensive Pan-Genomic Characterization of Adrenocortical Carcinoma
+Distinct patterns of somatic genome alterations in lung adenocarcinomas and squamous cell carcinomas
+Integrated genomic characterization of oesophageal carcinoma
+Comprehensive Molecular Characterization of Pheochromocytoma and Paraganglioma
+Integrated Molecular Characterization of Uterine Carcinosarcoma
+Integrative Genomic Analysis of Cholangiocarcinoma Identifies Distinct IDH-Mutant Molecular Profiles
+Integrated genomic and molecular characterization of cervical cancer
+Comprehensive and Integrative Genomic Characterization of Hepatocellular Carcinoma
+Integrative Analysis Identifies Four Molecular and Clinical Subsets in Uveal Melanoma
+Integrated Genomic Characterization of Pancreatic Ductal Adenocarcinoma
+Comprehensive Molecular Characterization of Muscle-Invasive Bladder Cancer
+Comprehensive and Integrated Genomic Characterization of Adult Soft Tissue Sarcomas
+The Integrated Genomic Landscape of Thymic Epithelial Tumors
+Pan-cancer Alterations of the MYC Oncogene and Its Proximal Network across the Cancer Genome Atlas
+Scalable Open Science Approach for Mutation Calling of Tumor Exomes Using Multiple Genomic Pipelines
+Molecular Characterization and Clinical Relevance of Metabolic Expression Subtypes in Human Cancers
+Systematic Analysis of Splice-Site-Creating Mutations in Cancer
+Somatic Mutational Landscape of Splicing Factor Genes and Their Functional Consequences across 33 Cancer Types
+The Cancer Genome Atlas Comprehensive Molecular Characterization of Renal Cell Carcinoma
+Pan-Cancer Analysis of lncRNA Regulation Supports Their Targeting of Cancer Genes in Each Tumor Context
+Spatial Organization and Molecular Correlation of Tumor-Infiltrating Lymphocytes Using Deep Learning on Pathology Images
+Machine Learning Detects Pan-cancer Ras Pathway Activation in The Cancer Genome Atlas
+Genomic and Molecular Landscape of DNA Damage Repair Deficiency across The Cancer Genome Atlas
+Driver Fusions and Their Implications in the Development and Treatment of Human Cancers
+Genomic, Pathway Network, and Immunologic Features Distinguishing Squamous Carcinomas
+Integrated Genomic Analysis of the Ubiquitin Pathway across Cancer Types
+SnapShot: TCGA-Analyzed Tumors
+The Cancer Genome Atlas: Creating Lasting Value beyond Its Data
+Machine Learning Identifies Stemness Features Associated with Oncogenic Dedifferentiation
+Oncogenic Signaling Pathways in The Cancer Genome Atlas
+Perspective on Oncogenic Processes at the End of the Beginning of Cancer Genomics
+Comprehensive Characterization of Cancer Driver Genes and Mutations
+An Integrated TCGA Pan-Cancer Clinical Data Resource to Drive High-Quality Survival Outcome Analytics
+Pathogenic Germline Variants in 10,389 Adult Cancers
+A Pan-Cancer Analysis of Enhancer Expression in Nearly 9000 Patient Samples
+Genomic and Functional Approaches to Understanding Cancer Aneuploidy
+A Comprehensive Pan-Cancer Molecular Study of Gynecologic and Breast Cancers
+Comparative Molecular Analysis of Gastrointestinal Adenocarcinomas
+lncRNA Epigenetic Landscape Analysis Identifies EPIC1 as an Oncogenic lncRNA that Interacts with MYC and Promotes Cell-Cycle Progression in Cancer
+The Immune Landscape of Cancer
+Integrated Molecular Characterization of Testicular Germ Cell Tumors
+Comprehensive Analysis of Alternative Splicing Across Tumors from 8,705 Patients
+A Pan-Cancer Analysis Reveals High-Frequency Genetic Alterations in Mediators of Signaling by the TGF-β Superfamily
+Integrative Molecular Characterization of Malignant Pleural Mesothelioma
+The chromatin accessibility landscape of primary human cancers
+Comprehensive Molecular Characterization of the Hippo Signaling Pathway in Cancer
+Before and After: Comparison of Legacy and Harmonized TCGA Genomic Data Commons’ Data
+Comprehensive Analysis of Genetic Ancestry and Its Molecular Correlates in Cancer
