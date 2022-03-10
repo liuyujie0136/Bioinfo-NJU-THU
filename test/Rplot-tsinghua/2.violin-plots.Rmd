@@ -1,0 +1,74 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+# Violin plots
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+data <-read.table(system.file('extdata', 'box_plots_mtcars.txt', package = 'lulab.plot', mustWork = T),header=T,sep="\t")
+df <- data[, c("mpg", "cyl", "wt")]
+df$cyl <- as.factor(df$cyl)
+```
+
+## Basic violin plot
+ 
+```{r fig.height=3, fig.width=3, fig.cap='Basic_violinplot'}
+ggplot(df, aes(x=cyl, y=mpg)) + 
+  geom_violin(trim=FALSE) +
+  labs(title="Plot of mpg per cyl", x="Cyl", y = "Mpg")
+```
+
+## Add summary statistics on a violin plot
+
+### Add median and quartile
+
+```{r fig.height=3, fig.width=3, fig.cap='Add_median&quartile1_violinplot'}
+ggplot(df, aes(x=cyl, y=mpg)) + 
+  geom_violin(trim=FALSE) +
+  labs(title="Plot of mpg per cyl", x="Cyl", y = "Mpg") +
+  stat_summary(fun.y=mean, geom="point", shape=23, size=2, color="red")
+```
+
+```{r fig.height=3, fig.width=3, fig.cap='Add_median&quartile2_violinplot'}
+ggplot(df, aes(x=cyl, y=mpg)) + 
+  geom_violin(trim=FALSE) +
+  labs(title="Plot of mpg per cyl", x="Cyl", y = "Mpg") +
+  geom_boxplot(width=0.1)
+```
+
+### Add mean and standard deviation
+
+```{r fig.height=3, fig.width=3, fig.cap='Add_mean&sd_violinplot1'}
+ggplot(df, aes(x=cyl, y=mpg)) + 
+  geom_violin(trim=FALSE) +
+  labs(title="Plot of mpg per cyl", x="Cyl", y = "Mpg") +
+  stat_summary(fun.data="mean_sdl", fun.args = list(mult = 1), geom="crossbar", width=0.1 )
+```
+
+```{r fig.height=3, fig.width=3, fig.cap='Add_mean&sd_violinplot2'}
+ggplot(df, aes(x=cyl, y=mpg)) + 
+  geom_violin(trim=FALSE) +
+  labs(title="Plot of mpg per cyl", x="Cyl", y = "Mpg") +
+  stat_summary(fun.data=mean_sdl, fun.args = list(mult = 1), geom="pointrange", color="red")
+```
+
+## Change violin plot fill colors
+
+```{r fig.height=3, fig.width=3, fig.cap='Customized_violinplot'}
+ggplot(df, aes(x=cyl, y=mpg, fill=cyl)) + 
+  geom_violin(trim=FALSE) +
+  geom_boxplot(width=0.1, fill="white") +
+  labs(title="Plot of mpg per cyl", x="Cyl", y = "Mpg") +
+  scale_fill_brewer(palette="Blues") + 
+  theme_classic()
+```
+
+
+

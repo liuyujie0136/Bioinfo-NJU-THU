@@ -1,0 +1,35 @@
+--- 
+title: "Lu lab's shared scripts for plots"
+author: "Xiaocheng Xi"
+date: "`r Sys.Date()`"
+description: "see https://gitlab.com/dongzhuoer/lulab-plot"
+site: bookdown::bookdown_site
+output:
+    bookdown::gitbook:
+        config:
+            toc:
+                after: |
+                  <li style="text-align:center"><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+            edit: https://gitlab.com/-/ide/project/dongzhuoer/lulab-plot/edit/master/-/%s
+---
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+# Preface {-}
+
+Install packages
+
+```{r eval=FALSE}
+cran_pkg <- c('ggplot2', 'qqman', 'gplots', 'pheatmap', 'scales', 'reshape2', 'RColorBrewer', 'plotrix')
+lapply(cran_pkg, function(x) {if (!(x %in% .packages(T))) install.packages(x)})
+```
+
+
+
+
+
+

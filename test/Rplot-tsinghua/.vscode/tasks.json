@@ -1,0 +1,30 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "type": "shell",
+    "presentation": {
+        "reveal": "silent"
+    },
+    "tasks": [
+        {
+            "label": "document",
+            "command": "R --slave -e 'devtools::document()'",
+            "problemMatcher": []
+        },
+        {
+            "label": "build book",
+            "command": "R --slave -e 'bookdown::render_book(\"\")'",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "build package",
+            "command": "R CMD INSTALL --no-multiarch --with-keep.source .",
+            "problemMatcher": []
+        }
+    ]
+}

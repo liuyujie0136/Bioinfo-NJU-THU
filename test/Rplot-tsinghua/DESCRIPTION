@@ -1,0 +1,26 @@
+Package: lulab.plot
+Type: Package
+Title: Lu lab's shared scripts for plots
+Version: 0.0.0.9000
+Authors@R: person("Zhuoer", "Dong", email = "dongzhuoer@mail.nankai.edu.cn", 
+    role = c("aut", "cre"))
+Description: refer to https://dongzhuoer.github.io/lulab-plot
+URL: https://github.com/dongzhuoer/lulab-plot
+BugReports: https://github.com/dongzhuoer/lulab-plot/issues
+License: file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Roxygen: list(markdown = TRUE, roclets=c('rd', 'collate', 'namespace'))
+Imports:
+    ggplot2,
+	qqman,
+	gplots,
+	pheatmap,
+	scales,
+	reshape2,
+	RColorBrewer,
+	plotrix,
+Suggests: testthat,
+    roxygen2
+VignetteBuilder: knitr

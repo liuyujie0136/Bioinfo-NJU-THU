@@ -1,0 +1,61 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+# Dot plots
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+data <-read.table(system.file('extdata', 'box_plots_mtcars.txt', package = 'lulab.plot', mustWork = T),header=T,sep="\t")
+
+df <- data[, c("mpg", "cyl", "wt")]
+df$cyl <- as.factor(df$cyl)
+```
+
+## Basic dot plots
+
+```{r fig.height=3, fig.width=3, fig.cap='Basic_dotplot'}
+ggplot(df, aes(x=cyl, y=mpg)) + 
+  geom_dotplot(binaxis='y', stackdir='center', binwidth=1)
+```
+
+## Add mean and standard deviation
+```{r fig.height=3, fig.width=3, fig.cap='Add_mean&sd1_dotplot'}
+ggplot(df, aes(x=cyl, y=mpg)) + 
+  geom_dotplot(binaxis='y', stackdir='center', binwidth=1) + 
+  stat_summary(fun.data="mean_sdl", fun.args = list(mult=1), geom="crossbar", width=0.5)
+```
+
+```{r fig.height=3, fig.width=3, fig.cap='Add_mean&sd2_dotplot'}
+ggplot(df, aes(x=cyl, y=mpg)) + 
+  geom_dotplot(binaxis='y', stackdir='center', binwidth=1) + 
+  stat_summary(fun.data="mean_sdl", fun.args = list(mult=1), geom="pointrange", color="red")
+```
+
+## Change dot colors
+
+```{r fig.height=3, fig.width=3, fig.cap='Customized_dotplot'}
+ggplot(df, aes(x=cyl, y=mpg, fill=cyl, shape=cyl)) + 
+  geom_dotplot(binaxis='y', stackdir='center', binwidth=1, dotsize=0.8) + 
+  labs(title="Plot of mpg per cyl",x="Cyl", y = "Mpg") +
+  #stat_summary(fun.data="mean_sdl", fun.args = list(mult=1), geom="crossbar", width=0.5) +
+  scale_fill_brewer(palette="Blues") +
+  #scale_color_brewer(palette="Blues") +
+  theme_classic()
+```
+
+## Change dot colors, shapes and align types
+
+```{r fig.height=3, fig.width=3, fig.cap='Customized_dotplot'}
+ggplot(df, aes(x=cyl, y=mpg, color=cyl, shape=cyl)) + 
+  geom_jitter(position=position_jitter(0.1), cex=2)+
+  labs(title="Plot of mpg per cyl",x="Cyl", y = "Mpg") + 
+  scale_color_brewer(palette="Blues") + 
+  theme_classic()
+```

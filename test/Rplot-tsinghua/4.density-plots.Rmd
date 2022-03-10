@@ -1,0 +1,88 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+# Density plots
+
+```{r}
+library(ggplot2)
+library(plyr)
+```
+
+```{r}
+
+df2 <-read.table(system.file('extdata', 'histogram_plots.txt', package = 'lulab.plot', mustWork = T),header=T,sep="\t")
+```
+
+## Basic density
+
+
+
+```{r fig.height=3, fig.width=3, fig.cap='Basic_densityplot'}
+ggplot(df2, aes(x=weight)) + 
+  geom_density()
+```
+
+## Add mean line on a density plot
+
+
+
+```{r fig.height=3, fig.width=3, fig.cap='Add_meanline_densityplot'}
+ggplot(df2, aes(x=weight)) +
+  geom_density() +
+  geom_vline(aes(xintercept=mean(weight)), color="black", linetype="dashed", size=0.5)
+```
+
+## Change density plot fill colors
+
+Use the plyr package plyr to calculate the average weight of each group :
+
+```{r}
+mu <- ddply(df2, "sex", summarise, grp.mean=mean(weight))
+head(mu)
+```
+
+draw the plot
+
+### Change fill colors
+
+
+
+```{r fig.height=3, fig.width=3, fig.cap='Customized_histogramplot1'}
+ggplot(df2, aes(x=weight, fill=sex)) +
+  geom_density(alpha=0.7)+
+  geom_vline(data=mu, aes(xintercept=grp.mean, color=sex), linetype="dashed")+
+  labs(title="Weight density curve",x="Weight(kg)", y = "Density") + 
+  scale_color_brewer(palette="Paired") +
+  scale_fill_brewer(palette="Blues") +
+  theme_classic()
+```
+
+### Change line colors
+
+
+
+```{r fig.height=3, fig.width=3, fig.cap='Customized_histogramplot2'}
+ggplot(df2, aes(x=weight, color=sex)) +
+  geom_density()+
+  geom_vline(data=mu, aes(xintercept=grp.mean, color=sex), linetype="dashed")+
+  labs(title="Weight density curve",x="Weight(kg)", y = "Density") + 
+  scale_color_brewer(palette="Paired") +
+  theme_classic()
+```
+
+### Combine histogram and density plots
+
+
+```{r fig.height=3, fig.width=3, fig.cap='Customized_histogramplot3'}
+ggplot(df2, aes(x=weight, color=sex, fill=sex)) + 
+  geom_histogram(binwidth=1, aes(y=..density..), alpha=0.5, position="identity") +
+  geom_density(alpha=.2) +
+  labs(title="Weight density curve",x="Weight(kg)", y = "Density") + 
+  scale_color_brewer(palette="Paired") +
+  scale_fill_brewer(palette="Blues") +
+  theme_classic()
+```

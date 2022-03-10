@@ -1,0 +1,79 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+# Box plots
+
+```{r}
+library(ggplot2)
+```
+
+Read the input files
+
+```{r}
+# “header=T” means that the data has a title, and sep="\t" is used as the separator
+data <- read.table(system.file('extdata', 'box_plots_mtcars.txt', package = 'lulab.plot', mustWork = T),header=T,sep="\t")
+# The function c(,,) means create the vector type data 
+df <- data[, c("mpg", "cyl", "wt")]
+df$cyl <- as.factor(df$cyl)
+```
+
+## Basic box plot
+
+```{r fig.height=3, fig.width=3, fig.cap='Basic_boxplot'}
+ggplot(df, aes(x=cyl, y=mpg)) + 
+  geom_boxplot(fill="gray")+
+  labs(title="Plot of mpg per cyl",x="Cyl", y = "Mpg")+
+  theme_classic()
+```
+
+## Change continuous color by groups
+
+```{r fig.height=3, fig.width=3, fig.cap='Customized_boxplot'}
+ggplot(df, aes(x=cyl, y=mpg, fill=cyl)) + 
+  geom_boxplot()+
+  labs(title="Plot of mpg per cyl",x="Cyl", y = "Mpg") +
+  scale_fill_brewer(palette="Blues") + 
+  theme_bw()
+```
+
+## Box plot for GO results
+
+```{r}
+df7 <- read.table(system.file('extdata', 'box_plots_David_GO.txt', package = 'lulab.plot', mustWork = T),header=T,sep="\t")
+df7 <- df7[1:10,]
+df7$Term <- sapply(strsplit(as.vector(df7$Term),'~'),'[',2)
+
+head(df7)
+```
+
+```{r fig.height=5, fig.width=10, fig.cap='Customized_boxplot2'}
+ggplot(df7) + geom_bar(stat="identity", width=0.6, aes(Term,Fold.Enrichment, fill=-1*log10(PValue)),colour="#1d2a33") + 
+  coord_flip() +
+  scale_fill_gradient(low="#e8f3f7",high="#236eba")+
+  labs(fill=expression(-log10_Pvalue), x="GO Terms",y="foldEnrichment", title="GO Biological Process") +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))  +
+  theme(axis.title.x =element_text(size=16), 
+        axis.title.y=element_text(size=14)) +
+  theme(axis.text.y = element_text(size = 10,face="bold"),
+        axis.text.x = element_text(size = 12,face="bold"))
+```
+
+```{r fig.height=5, fig.width=10, fig.cap='Customized_boxplot3'}
+ggplot(df7) + geom_bar(stat="identity", width=0.6, aes(Term,Fold.Enrichment, fill=-1*log10(PValue)),colour="#1d2a33") + 
+  coord_flip() +
+  scale_fill_gradient(low="#feff2b",high="#fe0100")+
+  labs(fill=expression(-log10_Pvalue), x="GO Terms",y="foldEnrichment", title="GO Biological Process") +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))  +
+  theme(axis.title.x =element_text(size=16), 
+        axis.title.y=element_text(size=14)) +
+  theme(axis.text.y = element_text(size = 10,face="bold"),
+        axis.text.x = element_text(size = 12,face="bold"))
+```
+
+Reference: http://www.sthda.com/english/wiki/ggplot2-box-plot-quick-start-guide-r-software-and-data-visualization

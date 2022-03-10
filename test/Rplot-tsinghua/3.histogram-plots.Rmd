@@ -1,0 +1,50 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+# Histogram plots
+
+```{r}
+library(ggplot2)
+library(plyr)
+```
+
+
+```{r}
+df2 <-read.table(system.file('extdata', 'histogram_plots.txt', package = 'lulab.plot', mustWork = T),header=T,sep="\t")
+```
+
+## Basic histogram plot
+
+```{r fig.height=3, fig.width=3, fig.cap='Basic_histogramplot'}
+ggplot(df2, aes(x=weight)) + geom_histogram(binwidth=1)
+```
+## Add mean line on a histogram plot
+
+```{r fig.height=3, fig.width=3, fig.cap='Add_meanline_histogramplot'}
+ggplot(df2, aes(x=weight)) + 
+  geom_histogram(binwidth=1, color="black", fill="white") +
+  geom_vline(aes(xintercept=mean(weight)),color="black", linetype="dashed", size=0.5)
+```
+## Change histogram plot fill colors
+Use the plyr package plyr to calculate the average weight of each group :
+
+```{r}
+mu <- ddply(df2, "sex", summarise, grp.mean=mean(weight))
+head(mu)
+```
+
+draw the plot
+```{r fig.height=3, fig.width=3, fig.cap='Customized_histogramplot'}
+ggplot(df2, aes(x=weight, color=sex)) +
+  geom_histogram(binwidth=1, fill="white", position="dodge")+
+  geom_vline(data=mu, aes(xintercept=grp.mean, color=sex), linetype="dashed") +
+  scale_color_brewer(palette="Paired") + 
+  theme_classic()+
+  theme(legend.position="top")
+```
+
+

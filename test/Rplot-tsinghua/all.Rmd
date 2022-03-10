@@ -1,0 +1,687 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+# Preface {-}
+
+Install packages
+
+```{r eval=FALSE}
+cran_pkg <- c('ggplot2', 'qqman', 'gplots', 'pheatmap', 'scales', 'reshape2', 'RColorBrewer', 'plotrix')
+lapply(cran_pkg, function(x) {if (!(x %in% .packages(T))) install.packages(x)})
+```
+
+
+
+# Box plots
+
+```{r}
+library(ggplot2)
+```
+
+Read the input files
+
+```{r}
+# “header=T” means that the data has a title, and sep="\t" is used as the separator
+data <- read.table(system.file('extdata', 'box_plots_mtcars.txt', package = 'lulab.plot', mustWork = T),header=T,sep="\t")
+# The function c(,,) means create the vector type data 
+df <- data[, c("mpg", "cyl", "wt")]
+df$cyl <- as.factor(df$cyl)
+```
+
+## Basic box plot
+
+```{r fig.height=3, fig.width=3, fig.cap='Basic_boxplot'}
+ggplot(df, aes(x=cyl, y=mpg)) + 
+  geom_boxplot(fill="gray")+
+  labs(title="Plot of mpg per cyl",x="Cyl", y = "Mpg")+
+  theme_classic()
+```
+
+## Change continuous color by groups
+
+```{r fig.height=3, fig.width=3, fig.cap='Customized_boxplot'}
+ggplot(df, aes(x=cyl, y=mpg, fill=cyl)) + 
+  geom_boxplot()+
+  labs(title="Plot of mpg per cyl",x="Cyl", y = "Mpg") +
+  scale_fill_brewer(palette="Blues") + 
+  theme_bw()
+```
+
+## Box plot for GO results
+
+```{r}
+df7 <- read.table(system.file('extdata', 'box_plots_David_GO.txt', package = 'lulab.plot', mustWork = T),header=T,sep="\t")
+df7 <- df7[1:10,]
+df7$Term <- sapply(strsplit(as.vector(df7$Term),'~'),'[',2)
+
+head(df7)
+```
+
+```{r fig.height=5, fig.width=10, fig.cap='Customized_boxplot2'}
+ggplot(df7) + geom_bar(stat="identity", width=0.6, aes(Term,Fold.Enrichment, fill=-1*log10(PValue)),colour="#1d2a33") + 
+  coord_flip() +
+  scale_fill_gradient(low="#e8f3f7",high="#236eba")+
+  labs(fill=expression(-log10_Pvalue), x="GO Terms",y="foldEnrichment", title="GO Biological Process") +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))  +
+  theme(axis.title.x =element_text(size=16), 
+        axis.title.y=element_text(size=14)) +
+  theme(axis.text.y = element_text(size = 10,face="bold"),
+        axis.text.x = element_text(size = 12,face="bold"))
+```
+
+```{r fig.height=5, fig.width=10, fig.cap='Customized_boxplot3'}
+ggplot(df7) + geom_bar(stat="identity", width=0.6, aes(Term,Fold.Enrichment, fill=-1*log10(PValue)),colour="#1d2a33") + 
+  coord_flip() +
+  scale_fill_gradient(low="#feff2b",high="#fe0100")+
+  labs(fill=expression(-log10_Pvalue), x="GO Terms",y="foldEnrichment", title="GO Biological Process") +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))  +
+  theme(axis.title.x =element_text(size=16), 
+        axis.title.y=element_text(size=14)) +
+  theme(axis.text.y = element_text(size = 10,face="bold"),
+        axis.text.x = element_text(size = 12,face="bold"))
+```
+
+Reference: http://www.sthda.com/english/wiki/ggplot2-box-plot-quick-start-guide-r-software-and-data-visualization
+
+
+
+
+# Violin plots
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+data <-read.table(system.file('extdata', 'box_plots_mtcars.txt', package = 'lulab.plot', mustWork = T),header=T,sep="\t")
+df <- data[, c("mpg", "cyl", "wt")]
+df$cyl <- as.factor(df$cyl)
+```
+
+## Basic violin plot
+ 
+```{r fig.height=3, fig.width=3, fig.cap='Basic_violinplot'}
+ggplot(df, aes(x=cyl, y=mpg)) + 
+  geom_violin(trim=FALSE) +
+  labs(title="Plot of mpg per cyl", x="Cyl", y = "Mpg")
+```
+
+## Add summary statistics on a violin plot
+
+### Add median and quartile
+
+```{r fig.height=3, fig.width=3, fig.cap='Add_median&quartile1_violinplot'}
+ggplot(df, aes(x=cyl, y=mpg)) + 
+  geom_violin(trim=FALSE) +
+  labs(title="Plot of mpg per cyl", x="Cyl", y = "Mpg") +
+  stat_summary(fun=mean, geom="point", shape=23, size=2, color="red")
+```
+
+```{r fig.height=3, fig.width=3, fig.cap='Add_median&quartile2_violinplot'}
+ggplot(df, aes(x=cyl, y=mpg)) + 
+  geom_violin(trim=FALSE) +
+  labs(title="Plot of mpg per cyl", x="Cyl", y = "Mpg") +
+  geom_boxplot(width=0.1)
+```
+
+### Add mean and standard deviation
+
+```{r fig.height=3, fig.width=3, fig.cap='Add_mean&sd_violinplot1'}
+ggplot(df, aes(x=cyl, y=mpg)) + 
+  geom_violin(trim=FALSE) +
+  labs(title="Plot of mpg per cyl", x="Cyl", y = "Mpg") +
+  stat_summary(fun.data=mean_sdl, fun.args = list(mult = 1), geom="crossbar", width=0.1 )
+```
+
+```{r fig.height=3, fig.width=3, fig.cap='Add_mean&sd_violinplot2'}
+ggplot(df, aes(x=cyl, y=mpg)) + 
+  geom_violin(trim=FALSE) +
+  labs(title="Plot of mpg per cyl", x="Cyl", y = "Mpg") +
+  stat_summary(fun.data=mean_sdl, fun.args = list(mult = 1), geom="pointrange", color="red")
+```
+
+## Change violin plot fill colors
+
+```{r fig.height=3, fig.width=3, fig.cap='Customized_violinplot'}
+ggplot(df, aes(x=cyl, y=mpg, fill=cyl)) + 
+  geom_violin(trim=FALSE) +
+  geom_boxplot(width=0.1, fill="white") +
+  labs(title="Plot of mpg per cyl", x="Cyl", y = "Mpg") +
+  scale_fill_brewer(palette="Blues") + 
+  theme_classic()
+```
+
+
+
+# Histogram plots
+
+```{r}
+library(ggplot2)
+library(plyr)
+```
+
+
+```{r}
+df2 <-read.table(system.file('extdata', 'histogram_plots.txt', package = 'lulab.plot', mustWork = T),header=T,sep="\t")
+```
+
+## Basic histogram plot
+
+```{r fig.height=3, fig.width=3, fig.cap='Basic_histogramplot'}
+ggplot(df2, aes(x=weight)) + geom_histogram(binwidth=1)
+```
+## Add mean line on a histogram plot
+
+```{r fig.height=3, fig.width=3, fig.cap='Add_meanline_histogramplot'}
+ggplot(df2, aes(x=weight)) + 
+  geom_histogram(binwidth=1, color="black", fill="white") +
+  geom_vline(aes(xintercept=mean(weight)),color="black", linetype="dashed",  size=0.5)
+```
+## Change histogram plot fill colors
+Use the plyr package plyr to calculate the average weight of each group :
+
+```{r}
+mu <- ddply(df2, "sex", summarise, grp.mean=mean(weight))
+head(mu)
+```
+
+draw the plot
+```{r fig.height=3, fig.width=3, fig.cap='Customized_histogramplot'}
+ggplot(df2, aes(x=weight, color=sex)) +
+  geom_histogram(binwidth=1, fill="white", position="dodge")+
+  geom_vline(data=mu, aes(xintercept=grp.mean, color=sex), linetype="dashed") +
+  scale_color_brewer(palette="Paired") + 
+  theme_classic()+
+  theme(legend.position="top")
+```
+
+
+
+# Density plots
+
+```{r}
+library(ggplot2)
+library(plyr)
+```
+
+```{r}
+
+df2 <-read.table(system.file('extdata', 'histogram_plots.txt', package = 'lulab.plot', mustWork = T),header=T,sep="\t")
+```
+
+## Basic density
+
+
+
+```{r fig.height=3, fig.width=3, fig.cap='Basic_densityplot'}
+ggplot(df2, aes(x=weight)) + 
+  geom_density()
+```
+
+## Add mean line on a density plot
+
+
+
+```{r fig.height=3, fig.width=3, fig.cap='Add_meanline_densityplot'}
+ggplot(df2, aes(x=weight)) +
+  geom_density() +
+  geom_vline(aes(xintercept=mean(weight)), color="black", linetype="dashed", size=0.5)
+```
+
+## Change density plot fill colors
+
+Use the plyr package plyr to calculate the average weight of each group :
+
+```{r}
+mu <- ddply(df2, "sex", summarise, grp.mean=mean(weight))
+head(mu)
+```
+
+draw the plot
+
+### Change fill colors
+
+
+
+```{r fig.height=3, fig.width=3, fig.cap='Customized_histogramplot1'}
+ggplot(df2, aes(x=weight, fill=sex)) +
+  geom_density(alpha=0.7)+
+  geom_vline(data=mu, aes(xintercept=grp.mean, color=sex), linetype="dashed")+
+  labs(title="Weight density curve",x="Weight(kg)", y = "Density") + 
+  scale_color_brewer(palette="Paired") +
+  scale_fill_brewer(palette="Blues") +
+  theme_classic()
+```
+
+### Change line colors
+
+
+
+```{r fig.height=3, fig.width=3, fig.cap='Customized_histogramplot2'}
+ggplot(df2, aes(x=weight, color=sex)) +
+  geom_density()+
+  geom_vline(data=mu, aes(xintercept=grp.mean, color=sex), linetype="dashed")+
+  labs(title="Weight density curve",x="Weight(kg)", y = "Density") + 
+  scale_color_brewer(palette="Paired") +
+  theme_classic()
+```
+
+### Combine histogram and density plots
+
+
+```{r fig.height=3, fig.width=3, fig.cap='Customized_histogramplot3'}
+ggplot(df2, aes(x=weight, color=sex, fill=sex)) + 
+  geom_histogram(binwidth=1, aes(y=..density..), alpha=0.5, position="identity") +
+  geom_density(alpha=.2) +
+  labs(title="Weight density curve",x="Weight(kg)", y = "Density") + 
+  scale_color_brewer(palette="Paired") +
+  scale_fill_brewer(palette="Blues") +
+  theme_classic()
+```
+
+
+
+# Dot plots
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+data <-read.table(system.file('extdata', 'box_plots_mtcars.txt', package = 'lulab.plot', mustWork = T),header=T,sep="\t")
+
+df <- data[, c("mpg", "cyl", "wt")]
+df$cyl <- as.factor(df$cyl)
+```
+
+## Basic dot plots
+
+```{r fig.height=3, fig.width=3, fig.cap='Basic_dotplot'}
+ggplot(df, aes(x=cyl, y=mpg)) + 
+  geom_dotplot(binaxis='y', stackdir='center', binwidth=1)
+```
+
+## Add mean and standard deviation
+```{r fig.height=3, fig.width=3, fig.cap='Add_mean&sd1_dotplot'}
+ggplot(df, aes(x=cyl, y=mpg)) + 
+  geom_dotplot(binaxis='y', stackdir='center', binwidth=1) + 
+  stat_summary(fun.data="mean_sdl", fun.args = list(mult=1), geom="crossbar", width=0.5)
+```
+
+```{r fig.height=3, fig.width=3, fig.cap='Add_mean&sd2_dotplot'}
+ggplot(df, aes(x=cyl, y=mpg)) + 
+  geom_dotplot(binaxis='y', stackdir='center', binwidth=1) + 
+  stat_summary(fun.data="mean_sdl", fun.args = list(mult=1), geom="pointrange", color="red")
+```
+
+## Change dot colors
+
+```{r fig.height=3, fig.width=3, fig.cap='Customized_dotplot'}
+ggplot(df, aes(x=cyl, y=mpg, color=cyl, fill=cyl, shape=cyl)) + 
+  geom_dotplot(binaxis='y', stackdir='center', binwidth=1, dotsize=0.8) + 
+  labs(title="Plot of mpg per cyl",x="Cyl", y = "Mpg") +
+  #stat_summary(fun.data="mean_sdl", fun.args = list(mult=1), geom="crossbar", width=0.5) +
+  scale_fill_brewer(palette="Blues") +
+  scale_color_brewer(palette="Blues") +
+  theme_classic()
+```
+
+## Change dot colors, shapes and align types
+
+```{r fig.height=3, fig.width=3, fig.cap='Customized_dotplot'}
+ggplot(df, aes(x=cyl, y=mpg, color=cyl, shape=cyl)) + 
+  geom_jitter(position=position_jitter(0.1), cex=2)+
+  labs(title="Plot of mpg per cyl",x="Cyl", y = "Mpg") + 
+  scale_color_brewer(palette="Blues") + 
+  theme_classic()
+```
+
+
+
+
+# Scatter plots
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+data <-read.table(system.file('extdata', 'box_plots_mtcars.txt', package = 'lulab.plot', mustWork = T),header=T,sep="\t")
+
+df <- data[, c("mpg", "cyl", "wt")]
+df$cyl <- as.factor(df$cyl)
+```
+
+## Basic scatter plots
+
+
+```{r fig.height=3, fig.width=3, fig.cap='Basic_scatterplot'}
+ggplot(df, aes(x=wt, y=mpg)) + 
+  geom_point(size=1.5)
+```
+
+## Add regression lines and change the point colors, shapes and sizes
+
+
+```{r fig.height=3, fig.width=3, fig.cap='Customized_scatterplot'}
+ggplot(df, aes(x=wt, y=mpg, color=cyl, shape=cyl)) +
+  geom_point(size=1.5) + 
+  geom_smooth(method="lm", se=FALSE, fullrange=TRUE) +
+  theme_classic()
+```
+
+
+
+
+# Volcano plots
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+df3 <- read.table(system.file('extdata', 'volcano_plots.txt', package = 'lulab.plot', mustWork = T), header=TRUE)
+
+df3$threshold <- as.factor(ifelse(df3$padj < 0.05 & abs(df3$log2FoldChange) >=1,ifelse(df3$log2FoldChange > 1 ,'Up','Down'),'Not'))
+```
+
+
+
+```{r fig.height=5, fig.width=5, fig.cap='Customized_volcanoplot'}
+ggplot(data=df3, aes(x=log2FoldChange, y =-log10(padj), color=threshold,fill=threshold)) +
+  scale_color_manual(values=c("blue", "grey","red"))+
+  geom_point(size=1) +
+  xlim(c(-3, 3)) +
+  theme_bw(base_size = 12, base_family = "Times") +
+  geom_vline(xintercept=c(-1,1),lty=4,col="grey",lwd=0.6)+
+  geom_hline(yintercept = -log10(0.05),lty=4,col="grey",lwd=0.6)+
+  theme(legend.position="right",
+        panel.grid=element_blank(),
+        legend.title = element_blank(),
+        legend.text= element_text(face="bold", color="black",family = "Times", size=8),
+        plot.title = element_text(hjust = 0.5),
+        axis.text.x = element_text(face="bold", color="black", size=12),
+        axis.text.y = element_text(face="bold",  color="black", size=12),
+        axis.title.x = element_text(face="bold", color="black", size=12),
+        axis.title.y = element_text(face="bold",color="black", size=12))+
+  labs(x="log2FoldChange",y="-log10 (adjusted p-value)",title="Volcano plot of DEG", face="bold")
+```
+
+
+
+# Manhattan plots
+
+```{r}
+library(qqman)
+```
+
+```{r}
+df4 <- read.table(system.file('extdata', 'manhattan_plots_gwasResults.txt', package = 'lulab.plot', mustWork = T),header=T,sep="\t")
+```
+
+
+
+```{r fig.height=5, fig.width=10, fig.cap='Customized_manhattanplot'}
+manhattan(df4, main = "GWAS results", ylim = c(0, 8),
+          cex = 0.5, cex.axis=0.8, col=c("dodgerblue4","deepskyblue"),
+          #suggestiveline = F, genomewideline = F, #remove the suggestive and genome-wide significance lines
+          chrlabs = as.character(c(1:22)))
+```
+
+
+
+# Heatmaps
+
+```{r}
+library(gplots)
+library(pheatmap)
+library(scales)
+library(reshape2)
+library(RColorBrewer)
+library(ggplot2)
+```
+
+```{r}
+df5 <-read.table(system.file('extdata', 'heatmaps.txt', package = 'lulab.plot', mustWork = T),header=T,sep="\t")
+
+# Covert data into matrix format
+# nrow(df5) and ncol(df5) return the number of rows and columns of matrix df5 respectively.
+dm <- data.matrix(df5[1:nrow(df5),2:ncol(df5)])
+# Get the row names
+row.names(dm) <- df5[,1]
+```
+
+## Draw the heatmap with the gplots package, heatmap.2 function
+
+to draw high expression value in red, we use colorRampPalette instead of redblue in heatmap.2
+
+colorRampPalette is a function in the RColorBrewer package
+
+```{r fig.cap='Customized_heatmap'}
+
+cr <- colorRampPalette(c("blue","white","red"))
+heatmap.2(dm,
+          scale="row", #scale the rows, scale each gene's expression value
+          key=T, keysize=1.1, 
+          cexCol=0.9,cexRow=0.8,
+          col=cr(1000),
+          ColSideColors=c(rep(c("blue","red"),5)),
+          density.info="none",trace="none",
+          #dendrogram='none', #if you want to remove dendrogram 
+          Colv = T,Rowv = T #clusters by both row and col
+)
+```
+
+## Draw the heatmap with the pheatmap pacakge, pheatmap function
+
+```{r fig.cap='Customized_heatmap'}
+#add column and row annotations
+annotation_col = data.frame(CellType = factor(rep(c("Control", "Tumor"), 5)), Time = 1:5)
+rownames(annotation_col) = colnames(dm)
+annotation_row = data.frame(GeneClass = factor(rep(c("Path1", "Path2", "Path3"), c(10, 4, 6))))
+rownames(annotation_row) = paste("Gene", 1:20, sep = "")
+#set colors of each group
+ann_colors = list(Time = c("white", "springgreen4"), 
+                  CellType = c(Control = "#7FBC41", Tumor = "#DE77AE"),
+                  GeneClass = c(Path1 = "#807DBA", Path2 = "#9E9AC8", Path3 = "#BCBDDC"))
+pheatmap(dm, 
+         cutree_col = 2, cutree_row = 3, #break up the heatmap by clusters you define
+         cluster_rows=TRUE, show_rownames=TRUE, cluster_cols=TRUE, #by default, pheatmap clusters by both row and col
+         annotation_col = annotation_col, annotation_row = annotation_row,annotation_colors = ann_colors)
+```
+
+## Draw the heatmap with the ggplot2 package
+
+cluster by row and col
+
+```{r}
+#cluster and re-order rows
+rowclust = hclust(dist(dm))
+reordered = dm[rowclust$order,]
+#cluster and re-order columns
+colclust = hclust(dist(t(dm)))
+```
+
+scale each row value in [0,1]
+
+```{r}
+dm.reordered = reordered[, colclust$order]
+dm.reordered=apply(dm.reordered,1,rescale) #rescale is a function in the scales package
+dm.reordered=t(dm.reordered) #transposed matrix
+```
+save col and row names before changing the matrix format
+
+```{r}
+col_name=colnames(dm.reordered) 
+row_name=rownames(dm.reordered) 
+```
+
+change data format for geom_title 
+
+```{r}
+colnames(dm.reordered)=1:ncol(dm.reordered)
+rownames(dm.reordered)=1:nrow(dm.reordered)
+dm.reordered=melt(dm.reordered) #melt is a function in the reshape2 package
+head(dm.reordered)
+```
+
+draw the heatmap
+
+```{r fig.cap='Customized_heatmap2'}
+ggplot(dm.reordered, aes(Var2, Var1)) + 
+  geom_tile(aes(fill = value), color = "white") + 
+  scale_fill_gradient(low = "white", high = "steelblue") +
+  theme_grey(base_size = 10) + 
+  labs(x = "", y = "") + 
+  scale_x_continuous(expand = c(0, 0),labels=col_name,breaks=1:length(col_name)) + 
+  scale_y_continuous(expand = c(0, 0),labels=row_name,breaks=1:length(row_name))
+```
+
+
+
+
+# Ballon plots
+
+```{r}
+library(ggplot2)
+library(plyr)
+```
+
+```{r}
+df6 <- read.table(system.file('extdata', 'ballon_plots_GO.txt', package = 'lulab.plot', mustWork = T), header=T, sep="\t")
+```
+
+## basic ballon plots
+
+```{r fig.height=6, fig.width=8, fig.cap='Basic_ballonplot'}
+ggplot(df6, aes(x=Fold.enrichment, y=Biological.process)) +
+  geom_point(aes(size = X.log10.Pvalue.)) +
+  scale_x_continuous(limits=c(0,7),breaks=0:7) +
+  scale_size(breaks=c(1,5,10,15,20,25)) +
+  theme_light() +
+  theme(panel.border=element_rect(fill='transparent', color='black', size=1),
+        plot.title = element_text(color="black", size=14, hjust=0.5, face="bold", lineheight=1),
+        axis.title.x = element_text(color="black", size=12, face="bold"),
+        axis.title.y = element_text(color="black", size=12, vjust=1.5, face="bold"),
+        axis.text.x = element_text(size=12,color="black",face="bold"),
+        axis.text.y = element_text(size=12,color="black",face="bold"),
+        legend.text = element_text(color="black", size=10, hjust=-2),
+        legend.position="bottom") + 
+  labs(x="Fold Enrichment",y="Biological Process",size="-log10(Pvalue)", title="GO Enrichment",face="bold")
+```
+
+## change the dot colors
+```{r fig.cap='Customized_ballonplot'}
+ggplot(df6, aes(x=col, y=Biological.process,color=X.log10.Pvalue.)) +
+  geom_point(aes(size = Fold.enrichment)) +
+  scale_x_discrete(limits=c("1")) +
+  scale_size(breaks=c(1,2,4,6)) +
+  scale_color_gradient(low="#fcbba1", high="#a50f15") +
+  theme_classic() +
+  theme(panel.border=element_rect(fill='transparent', color='black', size=1),
+        plot.title = element_text(color="black", size=14, hjust=0.5, face="bold", lineheight=1),
+        axis.title.x = element_blank(),
+        axis.title.y = element_text(color="black", size=12, face="bold"),
+        axis.text.x = element_blank(),
+        axis.ticks = element_blank(),
+        axis.text.y = element_text(size=12,color="black",face="bold"),
+        legend.text = element_text(color="black", size=10)) +
+  labs(y="Biological Process",size="Fold Enrichment", color="-Log10(Pvalue)",title="GO Enrichment",face="bold")
+```
+
+
+
+
+# Vennpie plots
+
+```{r}
+library(plotrix)
+```
+
+The vennpie plot is the combination of a venn diagram and a pie chart.
+
+data input (number of reads mapped to each category)
+
+```{r}
+total=100
+rRNA=5
+mtRNA=7
+intergenic=48 
+introns=12
+exons=30
+upstream=3
+downstream=6
+not_near_genes=40
+
+rest=total-rRNA-mtRNA
+genic=rest-intergenic
+introns_and_exons=introns+exons-genic
+```
+
+draw the plot
+
+parameter for pie chart
+
+```{r}
+iniR=0.2 # initial radius
+colors=list(NO='white',total='black',mtRNA='#e5f5e0',rRNA='#a1d99b',
+            genic='#3182bd',intergenic='#fec44f',introns='#fc9272',
+            exons='#9ecae1',upstream='#ffeda0',downstream='#fee0d2',
+            not_near_genes='#d95f0e')
+```
+
+```{r fig.cap='Customized_vennpieplot'}
+# from outer circle to inner circle
+#0 circle: blank
+pie(1, radius=iniR, init.angle=90, col=c('white'), border = NA, labels='')
+#4 circle: show genic:exons and intergenic:downstream
+floating.pie(0,0,
+             c(exons, genic-exons+not_near_genes, downstream, mtRNA+rRNA+intergenic-not_near_genes-downstream),
+             radius=5*iniR, 
+             startpos=pi/2, 
+             col=as.character(colors[c('exons','NO','downstream','NO')]),
+             border=NA)
+#3 circle: show genic:introns and intergenic:not_near_genes | upstream
+floating.pie(0,0,
+             c(genic-introns, introns, not_near_genes, intergenic-upstream-not_near_genes, upstream, mtRNA+rRNA),
+             radius=4*iniR,
+             startpos=pi/2, 
+             col=as.character(colors[c('NO','introns','not_near_genes','NO','upstream','NO')]),
+             border=NA)
+#2 circle: divide the rest into genic and intergenic
+floating.pie(0,0,
+             c(genic, intergenic, mtRNA+rRNA),
+             radius=3*iniR, 
+             startpos=pi/2, 
+             col=as.character(colors[c('genic','intergenic','NO')]),
+             border=NA)
+#1 circle: for rRNA+mtRNA+rest
+floating.pie(0,0, 
+             c(rest, rRNA,mtRNA), 
+             radius=2*iniR, 
+             startpos=pi/2, 
+             col=as.character(colors[c('NO','rRNA','mtRNA')]), 
+             border = NA)
+legend(0, 6*iniR, gsub("_"," ",names(colors)[-1]), 
+       col=as.character(colors[-1]), 
+       pch=19, bty='n', ncol=2)
+```
+
+or, in one column with reads count and percentage
+
+```{r}
+names=gsub("_"," ",names(colors)[-1])
+values = sapply(names(colors)[-1], get)
+percent=format(100*values/total, digits=2, trim=T)
+values = format(values, big.mark=",", scientific=FALSE, trim=T)
+cl=as.character(colors[-1])
+pchs=rep(19, length(cl)); pchs[1]=1;
+legend(0, 5*iniR, paste(names," (",values,", ", percent,"%)", sep=""), 
+       col=cl, pch=pchs,bty='n', ncol=1, cex=0.6)
+```
+
+

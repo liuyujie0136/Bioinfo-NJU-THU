@@ -1,0 +1,18 @@
+book_filename: lulab-plot
+before_chapter_script: _before.R
+output_dir: gitbook
+delete_merged_file: yes
+new_session: yes
+rmd_files:
+  - index.Rmd
+  - 1.box-plots.Rmd
+  - 2.violin-plots.Rmd
+  - 3.histogram-plots.Rmd
+  - 4.density-plots.Rmd
+  - 5.dot-plots.Rmd
+  - 6.scatter-plots.Rmd
+  - 7.volcano-plots.Rmd
+  - 8.manhattan-plots.Rmd
+  - 9.heatmaps.Rmd
+  - 10.ballon-plots.Rmd
+  - 11.vennpie-plots.Rmd

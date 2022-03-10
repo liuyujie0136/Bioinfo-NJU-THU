@@ -1,0 +1,15 @@
+"gender"	"age"	"weight"
+"1"	"male"	25	120
+"2"	"female"	26	124
+"3"	"male"	26	114
+"4"	"female"	27	134
+"5"	"male"	27	126
+"6"	"female"	27	134
+"7"	"male"	28	178
+"8"	"female"	28	167
+"9"	"male"	29	160
+"10"	"female"	30	110
+"11"	"male"	45	220
+"12"	"female"	45	165
+"13"	"male"	56	156
+"14"	"female"	57	165

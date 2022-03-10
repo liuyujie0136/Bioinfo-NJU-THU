@@ -1,0 +1,9 @@
+gitbook
+_bookdown_files
+
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+

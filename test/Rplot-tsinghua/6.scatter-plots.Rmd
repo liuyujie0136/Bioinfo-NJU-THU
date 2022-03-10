@@ -1,0 +1,37 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+# Scatter plots
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+data <-read.table(system.file('extdata', 'box_plots_mtcars.txt', package = 'lulab.plot', mustWork = T),header=T,sep="\t")
+
+df <- data[, c("mpg", "cyl", "wt")]
+df$cyl <- as.factor(df$cyl)
+```
+
+## Basic scatter plots
+
+
+```{r fig.height=3, fig.width=3, fig.cap='Basic_scatterplot'}
+ggplot(df, aes(x=wt, y=mpg)) + 
+  geom_point(size=1.5)
+```
+
+## Add regression lines and change the point colors, shapes and sizes
+
+
+```{r fig.height=3, fig.width=3, fig.cap='Customized_scatterplot'}
+ggplot(df, aes(x=wt, y=mpg, color=cyl, shape=cyl)) +
+  geom_point(size=1.5) + 
+  geom_smooth(method=lm, se=FALSE, fullrange=TRUE) +
+  theme_classic()
+```
