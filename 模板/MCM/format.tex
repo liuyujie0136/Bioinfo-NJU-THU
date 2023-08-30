@@ -1,0 +1,97 @@
+\usepackage[centerlast]{caption2}
+\usepackage{fancybox}
+\usepackage{amsfonts}
+\usepackage[toc,page,title,titletoc,header]{appendix}
+\usepackage{color}
+\usepackage{titlesec}
+\usepackage{ifthen,calc,lastpage,listings}
+\usepackage{amsthm}
+\usepackage{latexsym}
+\usepackage{amsmath}        % AMSLaTeX
+\usepackage{amssymb}        % AMSLaTeX sym-bols
+\usepackage{indentfirst}    % indent first line of each paragraph
+\usepackage{longtable}      % table that occupies multiple pages
+\usepackage{subfigure}      %
+\usepackage{slashbox}       %@@表格头画斜线
+\usepackage{graphicx}       %@@图象
+\usepackage{graphics}       %@@图象
+\usepackage[centerlast]{caption2}
+\usepackage{flafter}
+\usepackage{pifont}
+\usepackage{picinpar}
+\usepackage{CJK}
+
+%===============设置字体=============================
+\usepackage{mathptmx}  % times roman, including math (where possible)
+\usepackage{mathpazo}  % palatino, including math (where possible)
+\usepackage{helvet}    % helvetica
+%====================================================
+
+\usepackage{colortbl}
+\definecolor{grey}{rgb}{0.91,0.91,0.91}
+
+%===========================字体定义============================
+%\DeclareSymbolFont{operators}{OT1}{cmtt}{m}{n}
+%\DeclareMathSizes{10}{10}{7}{5}
+%\DeclareSymbolFont{symbols}{OMS}{cmex}{m}{n}
+%\mathversion{bold}
+%\DeclareMathSizes{13.82}{14.4}{10}{7}
+
+
+% style: page layout
+\setlength{\headheight}{15pt}
+\setlength{\headsep}{20pt}
+\setlength{\footskip}{30pt}
+\setlength{\voffset}{-5pt}
+\setlength{\hoffset}{16pt}
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textwidth}{\paperwidth-2\hoffset-2\oddsidemargin-2in}
+\setlength{\marginparpush}{0pt}
+\setlength{\marginparwidth}{0pt}
+\addtolength{\textheight}{3\baselineskip}
+
+% style: float counter
+\setcounter{totalnumber}{6}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{3}
+
+% style: table & figure caption vertical space
+\setlength{\abovecaptionskip}{10pt}
+\setlength{\belowcaptionskip}{10pt}
+
+% style: table & figure caption font size and face
+\renewcommand{\figurename}{\footnotesize{\textbf{Fig}}}
+\renewcommand{\tablename}{\footnotesize{\textbf{Tab}}}
+
+% style: table of contents topic depth
+\setcounter{tocdepth}{3}
+
+% style: list typesetting
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{darkgreen}{rgb}{0,0.3,0}
+\definecolor{darkblue}{rgb}{0,0,0.3}
+\definecolor{grey}{rgb}{0.95,0.95,0.95}
+\definecolor{darkgreen}{rgb}{0.0,0.5078,0.0}
+
+\lstset{language=Matlab}
+\lstset{xleftmargin=1em,xrightmargin=1em}
+\lstset{frame=}
+\lstset{%backgroundcolor=\color{grey},
+commentstyle=\color{darkgreen},keywordstyle=\color{blue},%,caption=\lstname,basicstyle=\footnotesize,
+breaklines=true,columns=flexible,mathescape=fause }
+\lstset{framexleftmargin=0.5em,framexrightmargin=1em,framextopmargin=0em,basicstyle=\footnotesize,framexbottommargin=1em}
+%\lstdefinestyle{numbers}{numbers=left,stepnumber=1,numberstyle=\small,numbersep=1em}
+\lstloadlanguages{C,C++,Java,Matlab,Mathematica}
+%===============================================================%                      %
+
+%===========================目录新定义==========================
+\usepackage{titletoc}
+\titlecontents{section}[0mm]
+{\vspace{.2\baselineskip}\bfseries}
+{\normalsize{\thecontentslabel}~\hspace{.5em}} {}
+{\dotfill\contentspage[{\makebox[0pt][r]{\thecontentspage}}]}
+[\vspace{.1\baselineskip}]
+\dottedcontents{section}[1.16cm]{\large}{2.0em}{4pt}
+\dottedcontents{subsection}[2.00cm]{\normalsize}{2.0em}{4pt}
+%===============================================================

@@ -1,0 +1,129 @@
+\documentclass[UTF8,a4paper,12pt]{ctexart}
+\usepackage{amsmath,amsfonts,amssymb} %数学
+\usepackage{fancyhdr} %设置页眉页脚
+\usepackage{mathrsfs} %花体 \mathscr{}
+
+\pagestyle{fancy}
+\lhead{}
+\rhead{}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+\begin{document}
+\title{\heiti{\Huge{微积分和线性代数习题}}}
+\author{南京大学数学系\quad 孙永忠 \\\small{\emph{Kuang Yaming Honors School, Nanjing University}}}
+\date{\small{2019年7月24日\space 整理}}
+\maketitle
+
+\section{常微分方程}
+\subsection{求通解}
+1. $y''-xf(x)y'+f(x)y=0$
+
+2. $y''-2y'+y=\frac{e^x}{x}$
+
+\subsection{证明}
+1. 齐次方程的任一解都可由一组基础解系线性表出。
+
+2. (1) 若$Y(x)$是一个基解矩阵，$P$是非奇异方阵，则$Z(x)=Y(x)P$也是基解矩阵。
+
+\quad\space (2) 若$Y(x),Z(x)$是两个基解矩阵，则存在非奇异阵$P$，使得$Z(x)=Y(x)P$。
+
+3. 刘维尔公式：$W(x)=W(x_0)e^{\int_{x_0}^x tr(A(x))dt}$
+
+4. 比较原理：设二元函数$f(x,y),g(x,y)$均满足常微分方程基本定理条件，$y=\varphi(x),y=\psi(x)$分别是$\frac{dy}{dx}=f(x,y), y\vert_{x=0}=y_0$与$\frac{dy}{dx}=g(x,y), y\vert_{x=0}=y_0$的解，$x\in[0,h]$。若$f,g$满足$f(x,y)\leqslant g(x,y), \forall x,y$，则$\varphi(x)\leqslant \psi(x), x\in[0,h]$。
+
+\subsection{拉普拉斯变换$\mathscr{L}(f)(s):=\int_0^\infty e^{-st}f(t)dt$}
+\subsubsection{求作下列方程的拉普拉斯变换}
+1. $f(t)=sin(\omega t)$
+
+2. $f(t)=cos(\omega t)$
+
+\subsubsection{用拉普拉斯变换求解方程}
+1. $\frac{d^2y}{dx^2}+y=sin(2x), y(0)=0, y'(0)=1$
+
+2. $\frac{d^2y}{dx^2}+\omega^2y=f(x), y(0)=y_0, y'(0)=y_1$
+
+3. $\begin{cases}
+\frac{dx}{dt}+y=-asin(\omega t)\\
+\frac{dy}{dt}-x=acos(\omega t) \quad x(0)=1, y(0)=0
+\end{cases}$
+
+\subsubsection{证明}
+对函数$f,g$，称$f*g(t)=\int_0^t f(t-s)g(s)ds$为卷积，求证：
+$$\mathscr{L}(f*g)=\mathscr{L}(f)\mathscr{L}(g)$$
+
+\subsection{零点及边值问题}
+1. 设$y''+q(x)y=0$中系数$q(x)$满足$q(x)\leqslant M, x\in[a,+\infty), M>0$为一常数，求证：$y''+q(x)y=0$的任一非零解的相邻零点的距离不小于$\frac{\pi}{\sqrt{M}}$。
+
+2. 求解边值问题：$y''+\lambda y=0, y(0)=0, y'(1)=0$，$\lambda$为大于0的常数。
+
+\section{傅里叶级数}
+\subsection{计算}
+1. 求出$\sum\limits_{n=1}^\infty \frac{sin(nx)}{n}, \sum\limits_{n=1}^\infty \frac{cos(nx)}{n}$的解析表达式。
+
+2. 对于$f(x)=\frac{1}{2}(\pi-x), x\in[0,2\pi)$作周期延拓后求其\emph{Fourier}级数。
+
+3. 将$f(x)=x^2, x\in[0,\pi)$延拓为以$\pi$为周期的函数，求其\emph{Fourier}级数并讨论收敛性。
+
+4. 求$f(x)=x^3, x\in(-\pi,\pi)$的\emph{Fourier}级数。
+
+5. 将$f(x)=x^2$在下列区间上展开成\emph{Fourier}级数。
+
+(1)[-1,1] \quad (2)[0,$\pi$] \quad (3)[0,1] \quad (4)[0,$2\pi$]
+
+\subsection{证明}
+1. 用\emph{Riemann-Lebesgue}引理证明：$\int_0^\infty \frac{sinx}{x}=\frac{\pi}{2}$
+
+2. 利用特征函数$\varphi(x)=
+\begin{cases}
+1, x\in[a,b]\\
+0, x\in[-\pi,a)\bigcup(b,\pi]
+\end{cases}$证明傅里叶级数的逐项积分。
+
+\subsection{\emph{Fourier}变换}
+1. 计算$f(x)=e^{-\vert x\vert}$的\emph{Fourier}变换。
+
+2. 计算$f(x)=\frac{1}{\sqrt{2\pi\sigma}}e^{-\frac{(x-a)^2}{4\sigma}}$的\emph{Fourier}变换。
+
+\section{线性代数}
+\subsection{计算}
+1. 三阶实对称阵$A$秩为2，$\lambda=6$为$A$的二重特征值，且$\xi_1=\begin{pmatrix} 1\\0\\1 \end{pmatrix}$，$\xi_2=\begin{pmatrix} 1\\3\\-2 \end{pmatrix}$为$\lambda=6$的特征向量，求$A$。
+
+2. 分别利用正交变换法、配方法、合同变换法将二次型$f=x_1x_2+x_2x_3+x_3x_1$化为标准型。
+
+3. 化二次型$f=\sum\limits_{i=1}^n x_i^2+\sum\limits_{i<j} x_ix_j$为标准型。
+
+4. $f=(t+1)x_1^2-2x_1x_2+(t+2)x_2^2-2x_2x_3+(t+1)x_3^2$，求$t$范围使$f$为正定二次型。
+
+\subsection{证明}
+1. 若$a,b,c$两两正交，求证：$\vert a\vert^2+\vert b\vert^2+\vert c\vert^2=\vert a+b+c\vert^2$。
+
+2. 证明下面各条等价：
+
+(1)$\mathscr{U}$是正交变换 \quad(2)$\mathscr{U}$保范数 \quad(3)$\mathscr{U}$保标准正交基 \quad(4)$\mathscr{U}$在任一标准正交基下对应一个正交方阵
+
+3. 设$V$是$n$维欧氏空间，$v_0\in V, v_0\neq\theta$，求证：$V_0:=\lbrace v\vert\langle v,v_0\rangle=0\rbrace$是$V$的子空间且$dim(V_0)=n-1$。
+
+4. 设$z_1, z_2\cdots z_n$是$n$维欧氏空间$V$的一组向量，求证：$z_1, z_2\cdots z_n$线性无关当且仅当$\vert A\vert\neq 0$，其中$A=(\langle z_i,z_j\rangle)_{n\times n}$。
+
+5. 设$\eta\in V$是一单位向量，定义线性变换$\mathscr{U}:V\rightarrow V$，$v\rightarrow\mathscr{U}(v)=v-2\langle\eta,v\rangle\eta$，求证：(1)$\mathscr{U}$是正交变换。(2)$\mathscr{U}$在任一组标准正交基下的矩阵$U$有$\vert U\vert=-1$。
+
+6. 设$\emph{\textbf{a}}$是单位列向量，记$A=I_n-2\emph{\textbf{a}}\emph{\textbf{a}}^T$，求证：$A$是正交对称阵。
+
+7. 设$A,B$为同阶正交阵且$\vert A\vert=-\vert B\vert$，求证：$\vert A+B\vert=0$。
+
+8. 设$A,B$为$n$阶对称阵且$A$正定，求证：存在非退化阵$P$，使得$P^TAP$和$P^TBP$均为对角阵。
+
+\subsection{投影问题}
+1. 设$W$是$V$的线性子空间，对$v\in V$，记$v_W$为$v$在$W$上的正交投影，求证：对$\forall w\in W, \vert v-v_W\vert\leqslant\vert v-w\vert$\quad ($v_W$是$v$在$W$上的最佳逼近)。
+
+反之，若$v_W\in W$满足上述性质，求证：$v-v_W\perp W$。
+
+2. 设$P$是$n$阶投影矩阵，即$P$满足$P^T=P$和$P^2=P$。求证：$P\sim
+\begin{pmatrix}
+I_r&0\\
+0&0
+\end{pmatrix}$。
+进一步证明：$\exists U\in \mathscr{R}^{n\times r}$，使得$P=UU^T, U^TU=I_r$。
+
+\end{document}
